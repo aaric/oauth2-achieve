@@ -1,0 +1,27 @@
+plugins {
+	id "java"
+	id "io.freefair.lombok" version "4.1.6"
+	id "org.springframework.boot" version "2.2.5.RELEASE"
+	id "io.spring.dependency-management" version "1.0.9.RELEASE"
+}
+
+group = "com.incarcloud"
+version = "0.0.1-SNAPSHOT"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+ext {
+	springBootVersion = "2.2.5.RELEASE"
+}
+
+repositories {
+	maven { url "https://maven.aliyun.com/repository/public" }
+	maven { url "https://repository.incarcloud.com/content/groups/public" }
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+
+	testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+}
