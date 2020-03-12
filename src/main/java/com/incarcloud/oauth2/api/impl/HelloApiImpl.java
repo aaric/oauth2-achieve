@@ -2,6 +2,7 @@ package com.incarcloud.oauth2.api.impl;
 
 import com.incarcloud.oauth2.api.HelloApi;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 0.0.1-SNAPSHOT
  */
 @RestController
+@RequestMapping("/api")
 public class HelloApiImpl implements HelloApi {
 
     @Override
