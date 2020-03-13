@@ -8,10 +8,10 @@
 
 ### 1.1 授权码模式 (`authorization_code`)
 
-- step_1: http://localhost:8080/oauth/authorize?client_id=client&response_type=code
-- step_2: https://www.incarcloud.com/?code=4JIxd2
-- step_3: http://localhost:8080/oauth/token?grant_type=authorization_code&code=4JIxd2&client_id=client&client_secret=secret&redirect_uri=https://www.incarcloud.com
-  
+- step_1: curl "http://localhost:8080/oauth/authorize?client_id=client&response_type=code"
+- step_2: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code&code=2EIHGt" "http://client:secret@localhost:8080/oauth/token"
+- step_3: curl "http://localhost:8080/api/oauth2/hello/sayHi?access_token=1202db6b-bdc3-4348-9dbe-75bd133f7197"
+
 ### 1.2 客户端授权模式 (`client_credentials`)
 
 ### 1.3 密码授权模式 (`password`)
