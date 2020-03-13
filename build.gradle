@@ -6,13 +6,13 @@ plugins {
 }
 
 group = "com.incarcloud"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 ext {
-	springBootVersion = "2.2.5.RELEASE"
+	springCloudVersion = "Greenwich.RELEASE"
 }
 
 repositories {
@@ -22,10 +22,14 @@ repositories {
 
 dependencies {
 	implementation "com.sun.xml.bind:jaxb-impl:2.3.3-b02"
-	implementation "org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE"
-	implementation "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+	implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
+	implementation "org.springframework.boot:spring-boot-starter-web"
 
-	implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
 
-	testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+	}
 }

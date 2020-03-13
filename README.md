@@ -4,32 +4,28 @@
 
 ![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)
 
-## 1. 创建access_token
+## 1. 授权模式
 
-### 1.1 密码授权模式-client
+### 1.1 授权码模式 (`authorization_code`)
 
-```text
-http://localhost:8080/oauth/token?username=user01&password=123456&grant_type=password&client_id=app&client_secret=app123
-```
+- step_1: curl "http://localhost:8080/oauth/authorize?client_id=client&response_type=code"  //?code=AQlFHh
+- step_2: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code&code=AQlFHh" "http://client:secret@localhost:8080/oauth/token"
+- step_3: curl "http://localhost:8080/api/oauth2/hello/sayHi?access_token=5161fdcb-9363-4669-99e1-2da6f5079b01"
 
-### 1.2 客户端授权模式-password
-```text
-http://localhost:8080/oauth/token?grant_type=client_credentials&client_id=app&client_secret=app123
-```
+### 1.2 客户端授权模式 (`client_credentials`)
 
-### 1.3 授权码模式-code
+### 1.3 密码授权模式 (`password`)
 
-#### 1.3.1 获取code
+### 1.4 刷新令牌模式 (`refresh_token`)
 
-```text
-http://localhost:8080/oauth/authorize?response_type=code&client_id=app&redirect_uri=http://baidu.com
-```
+### 1.2 默认端点
 
-#### 1.3.2 通过code换token
-
-```text
-http://localhost:8080/oauth/token?grant_type=authorization_code&code=7UtsBd&client_id=app&client_secret=app123&redirect_uri=http://baidu.com
-```
+- `/oauth/authorize`：授权端点
+- `/oauth/token`：令牌端点
+- `/oauth/confirm_access`：用户确认授权提交端点
+- `/oauth/error`：授权服务错误信息端点
+- `/oauth/check_token`：用于资源服务访问的令牌解析端点
+- `/oauth/token_key`：提供公有密匙的端点，如果你使用 JWT 令牌的话
 
 ## 2. 使用access_token访问api
 
