@@ -24,3 +24,8 @@ logging:
     path: ${LOGGING_FILE_PATH:./}
     name: output.log
     max-size: ${LOGGING_FILE_MAX_SIZE:20MB}
+
+# Spring settings
+spring:
+  application:
+    name: oauth2-achieve
