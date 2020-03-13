@@ -8,9 +8,9 @@
 
 ### 1.1 授权码模式 (`authorization_code`)
 
-- step_1: curl "http://localhost:8080/oauth/authorize?client_id=client&response_type=code"
-- step_2: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code&code=2EIHGt" "http://client:secret@localhost:8080/oauth/token"
-- step_3: curl "http://localhost:8080/api/oauth2/hello/sayHi?access_token=1202db6b-bdc3-4348-9dbe-75bd133f7197"
+- step_1: curl "http://localhost:8080/oauth/authorize?client_id=client&response_type=code"  //?code=AQlFHh
+- step_2: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code&code=AQlFHh" "http://client:secret@localhost:8080/oauth/token"
+- step_3: curl "http://localhost:8080/api/oauth2/hello/sayHi?access_token=5161fdcb-9363-4669-99e1-2da6f5079b01"
 
 ### 1.2 客户端授权模式 (`client_credentials`)
 
