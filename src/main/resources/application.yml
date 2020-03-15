@@ -44,3 +44,8 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+
+# Mybatis settings
+mybatis:
+  type-aliases-package: com.incarcloud.oauth2.pojo
+  mapperLocations: classpath:mapper/**/*Mapper.xml

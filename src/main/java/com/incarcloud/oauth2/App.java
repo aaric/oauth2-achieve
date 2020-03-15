@@ -2,6 +2,7 @@ package com.incarcloud.oauth2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * 项目启动类
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 0.0.1-SNAPSHOT
  */
 @SpringBootApplication
+@MapperScan(basePackages = "com.incarcloud.oauth2.**.mapper")
 public class App {
 
     /**

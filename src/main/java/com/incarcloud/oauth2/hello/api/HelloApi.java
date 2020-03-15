@@ -1,4 +1,4 @@
-package com.incarcloud.oauth2.api;
+package com.incarcloud.oauth2.hello.api;
 
 /**
  * 问候API接口
