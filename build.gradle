@@ -1,41 +1,75 @@
 plugins {
 	id "java"
-	id "io.freefair.lombok" version "4.1.6"
-	id "org.springframework.boot" version "2.2.5.RELEASE"
-	id "io.spring.dependency-management" version "1.0.9.RELEASE"
+	id "io.freefair.lombok" version "4.1.6" apply false
+	id "io.spring.dependency-management" version "1.0.9.RELEASE" apply false
+	id "org.springframework.boot" version "2.2.5.RELEASE" apply false
 }
 
-group = "com.incarcloud"
-version = "0.2.2-SNAPSHOT"
-
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
-
-ext {
-	springCloudVersion = "Greenwich.RELEASE"
-}
-
-repositories {
-	maven { url "https://maven.aliyun.com/repository/public" }
-	maven { url "https://repository.incarcloud.com/content/groups/public" }
-}
-
-dependencies {
-	implementation 'tk.mybatis:mapper-spring-boot-starter:2.1.5'
-
-	implementation "com.zaxxer:HikariCP:3.4.2"
-	implementation "mysql:mysql-connector-java:8.0.18"
-    implementation "org.springframework.boot:spring-boot-starter-jdbc"
-
-	implementation "com.sun.xml.bind:jaxb-impl:2.3.3-b02"
-	implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
-	implementation "org.springframework.boot:spring-boot-starter-web"
-
-	testImplementation "org.springframework.boot:spring-boot-starter-test"
-}
-
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+allprojects {
+	ext {
+		springCloudVersion = "Greenwich.RELEASE"
 	}
+
+	repositories {
+		maven { url "https://maven.aliyun.com/repository/public" }
+		maven { url "https://repository.incarcloud.com/content/groups/public" }
+	}
+}
+
+subprojects {
+	apply plugin: "java"
+	apply plugin: "io.freefair.lombok"
+	apply plugin: "io.spring.dependency-management"
+
+	group = "com.incarcloud"
+	version = "0.3.0-SNAPSHOT"
+
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+
+	dependencies {
+		implementation "org.slf4j:slf4j-api"
+		implementation "org.slf4j:slf4j-simple"
+
+		implementation "tk.mybatis:mapper-spring-boot-starter"
+
+		implementation "com.zaxxer:HikariCP"
+		implementation "mysql:mysql-connector-java"
+		implementation "org.springframework.boot:spring-boot-starter-jdbc"
+
+		implementation "com.sun.xml.bind:jaxb-impl"
+
+		testImplementation "org.springframework.boot:spring-boot-starter-test"
+	}
+
+	dependencyManagement {
+		dependencies {
+			dependencySet(group: "org.slf4j", version: "1.7.30") {
+				entry "slf4j-api"
+				entry "slf4j-simple"
+			}
+
+			dependency "com.zaxxer:HikariCP:3.4.2"
+			dependency "mysql:mysql-connector-java:8.0.18"
+			dependency "tk.mybatis:mapper-spring-boot-starter:2.1.5"
+
+			dependency "com.sun.xml.bind:jaxb-impl:2.3.3-b02"
+		}
+
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
+		}
+	}
+
+	compileJava {
+		options.encoding = "UTF-8"
+		options.compilerArgs << "-Xlint:unchecked"
+	}
+
+	compileTestJava {
+		options.encoding = "UTF-8"
+		options.compilerArgs << "-Xlint:unchecked"
+	}
+
+	defaultTasks "assemble"
 }
