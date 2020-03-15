@@ -1,11 +1,13 @@
 package com.incarcloud.oauth2.config;
 
+import com.incarcloud.oauth2.security.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,11 +29,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+        // 0.2.1-SNAPSHOT
+        /*auth.inMemoryAuthentication()
                 .withUser("admin").password(passwordEncoder().encode("123456")).roles("ADMIN")
                 .and()
-                .withUser("user").password(passwordEncoder().encode("123456")).roles("USER");
+                .withUser("user").password(passwordEncoder().encode("123456")).roles("USER");*/
+
+        // 0.2.2-SNAPSHOT
+        // 使用JDBC认证与收取
+        auth.userDetailsService(userDetailsService());
     }
 }

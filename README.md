@@ -18,7 +18,7 @@
 
 ### 1.4 刷新令牌模式 (`refresh_token`)
 
-### 1.2 默认端点
+## 2. 默认端点
 
 - `/oauth/authorize`：授权端点
 - `/oauth/token`：令牌端点
@@ -27,8 +27,11 @@
 - `/oauth/check_token`：用于资源服务访问的令牌解析端点
 - `/oauth/token_key`：提供公有密匙的端点，如果你使用 JWT 令牌的话
 
-## 2. 使用access_token访问api
+## 3. 权限控制模型
 
-```text
-http://localhost:8080/api/oauth2/hello/sayHi?access_token=1202db6b-bdc3-4348-9dbe-75bd133f7197
-```
+> RBAC支持三个著名的安全原则:最小权限原则,责任分离原则和数据抽象原则。
+
+- `RBAC`：基于角色
+- `ACL`：访问控制列表
+- `ABAC`：基于属性
+- `PBAC`：基于策略

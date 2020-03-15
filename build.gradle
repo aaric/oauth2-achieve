@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.incarcloud"
-version = "0.2.1-SNAPSHOT"
+version = "0.2.2-SNAPSHOT"
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -21,6 +21,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'tk.mybatis:mapper-spring-boot-starter:2.1.5'
+
 	implementation "com.zaxxer:HikariCP:3.4.2"
 	implementation "mysql:mysql-connector-java:8.0.18"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
