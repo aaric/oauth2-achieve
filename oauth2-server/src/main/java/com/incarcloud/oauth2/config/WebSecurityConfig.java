@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Security配置
+ * 安全认证配置
  *
  * @author Aaric, created on 2020-03-13T11:50.
  * @version 0.2.0-SNAPSHOT
@@ -46,5 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 0.2.2-SNAPSHOT
         // 使用JDBC认证与收取
         auth.userDetailsService(userDetailsService());
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 将check_token暴露，否则oauth2client报403
+        web.ignoring().antMatchers("/oauth/check_token");
     }
 }
