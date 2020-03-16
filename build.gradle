@@ -6,6 +6,9 @@ plugins {
 }
 
 allprojects {
+	group = "com.incarcloud"
+	version = "0.3.0-SNAPSHOT"
+
 	apply plugin: "io.freefair.lombok"
 	apply plugin: "io.spring.dependency-management"
 
@@ -46,9 +49,6 @@ allprojects {
 
 subprojects {
 	apply plugin: "java"
-
-	group = "com.incarcloud"
-	version = "0.3.0-SNAPSHOT"
 
 	sourceCompatibility = JavaVersion.VERSION_11
 	targetCompatibility = JavaVersion.VERSION_11
