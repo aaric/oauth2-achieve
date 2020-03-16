@@ -6,3 +6,6 @@ pluginManagement {
 }
 
 rootProject.name = "oauth2-achieve"
+
+include "oauth2-server"
+include "oauth2-client-server"

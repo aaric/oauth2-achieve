@@ -28,7 +28,7 @@ logging:
 # Spring settings
 spring:
   application:
-    name: oauth2-achieve
+    name: oauth2-server
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
