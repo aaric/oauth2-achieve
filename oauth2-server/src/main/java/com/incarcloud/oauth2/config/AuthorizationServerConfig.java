@@ -1,10 +1,12 @@
 package com.incarcloud.oauth2.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -30,6 +32,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /*@Autowired
     private PasswordEncoder passwordEncoder;*/
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     // 0.2.1-SNAPSHOT
     @Bean
     @Primary
@@ -54,7 +59,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 保存令牌数据
-        endpoints.tokenStore(tokenStore());
+        endpoints.tokenStore(tokenStore())
+                .authenticationManager(authenticationManager)
+        /*.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)*/;
     }
 
     @Override
@@ -66,6 +73,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("authorization_code")
                 .scopes("app")
                 .redirectUris("https://www.incarcloud.com");*/
+
+        // 0.4.0-SNAPSHOT
+        /*clients.inMemory()
+                .withClient("client")
+                .secret(passwordEncoder.encode("secret"))
+                .authorizedGrantTypes("password")
+                .scopes("app");*/
 
         // 0.2.1-SNAPSHOT
         // 读取客户端配置
