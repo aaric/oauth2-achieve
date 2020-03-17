@@ -72,4 +72,4 @@ CREATE TABLE `oauth_refresh_token` (
 
 -- 0.2.1-SNAPSHOT
 INSERT INTO `oauth_client_details` (`client_id`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`)
-VALUES ('client', '$2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa', 'app', 'authorization_code', 'https://www.incarcloud.com');
+VALUES ('client', '$2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa', 'app', 'authorization_code,password,refresh_token', 'https://www.incarcloud.com');

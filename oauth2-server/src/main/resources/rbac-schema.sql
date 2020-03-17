@@ -49,12 +49,14 @@ CREATE TABLE `rbac_user_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 
--- 0.2.2-SNAPSHOT
-INSERT INTO `rbac_permission`(`id`, `parent_id`, `name`, `enname`, `url`, `description`, `created`, `updated`) VALUES (1, 0, '测试角色', 'oauth2client:admin', '/api/oauth2client/', NULL, now(), now());
+-- 0.4.0-SNAPSHOT
+INSERT INTO `rbac_permission`(`id`, `parent_id`, `name`, `enname`, `url`, `description`, `created`, `updated`) VALUES (1, 0, '测试角色-oauth2', 'oauth2:admin', '/api/oauth2/', NULL, now(), now());
+INSERT INTO `rbac_permission`(`id`, `parent_id`, `name`, `enname`, `url`, `description`, `created`, `updated`) VALUES (2, 0, '测试角色-oauth2client', 'oauth2client:admin', '/api/oauth2client/', NULL, now(), now());
 
 INSERT INTO `rbac_role`(`id`, `parent_id`, `name`, `enname`, `description`, `created`, `updated`) VALUES (1, 0, '超级管理员', 'admin', NULL, now(), now());
 
 INSERT INTO `rbac_role_permission`(`id`, `role_id`, `permission_id`) VALUES (1, 1, 1);
+INSERT INTO `rbac_role_permission`(`id`, `role_id`, `permission_id`) VALUES (2, 1, 2);
 
 INSERT INTO `rbac_user`(`id`, `username`, `password`, `phone`, `email`, `created`, `updated`) VALUES (1, 'admin', '$2a$10$OZjuEUV1.se6xxp50Fj47Ov56Aex5wSK9hVGcNxaX00VThBaQvJ6u', '15888888888', 'admin@163.com', now(), now());
 

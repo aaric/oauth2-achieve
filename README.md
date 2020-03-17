@@ -1,8 +1,8 @@
 # oauth2-achieve
 
-> OAuth2 Learning.
-
 ![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)
+
+> OAuth2 Learning.
 
 ## 1. 授权模式
 
@@ -15,6 +15,9 @@
 ### 1.2 客户端授权模式 (`client_credentials`)
 
 ### 1.3 密码授权模式 (`password`)
+
+- step_1: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&scope=app&username=user&password=123456" "http://client:secret@localhost:8080/oauth/token"
+- step_2: curl -H "Authorization: Bearer d0370cfe-ca79-416a-80ab-6f760fd35965" "http://localhost:8080/api/oauth2/hello/sayHi?access_token=d0370cfe-ca79-416a-80ab-6f760fd35965"
 
 ### 1.4 刷新令牌模式 (`refresh_token`)
 
