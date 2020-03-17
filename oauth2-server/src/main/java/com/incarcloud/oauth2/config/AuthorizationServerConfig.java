@@ -61,6 +61,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 保存令牌数据
         endpoints.tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
+        // http://localhost:8080/oauth/token?client_id=client&client_secret=secret&grant_type=password&scope=app&username=user&password=123456
         /*.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)*/;
     }
 
