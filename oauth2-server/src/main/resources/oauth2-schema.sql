@@ -71,5 +71,5 @@ CREATE TABLE `oauth_refresh_token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 0.2.1-SNAPSHOT
-INSERT INTO `oauth_client_details` (`client_id`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`)
-VALUES ('client', '$2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa', 'app', 'authorization_code,password,refresh_token', 'https://www.incarcloud.com');
+INSERT INTO `oauth_client_details` (`client_id`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `access_token_validity`, `refresh_token_validity`)
+VALUES ('client', '$2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa', 'app', 'authorization_code,password,refresh_token', 'https://www.incarcloud.com', 43200, 2592000);

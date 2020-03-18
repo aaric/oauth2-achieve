@@ -1,6 +1,7 @@
 package com.incarcloud.oauth2.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -33,6 +35,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder passwordEncoder;*/
 
     @Autowired
+    @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
     // 0.2.1-SNAPSHOT
@@ -59,10 +62,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 保存令牌数据
-        endpoints.tokenStore(tokenStore())
-                .authenticationManager(authenticationManager)
+        endpoints.authenticationManager(authenticationManager)
+                .tokenStore(tokenStore());
         // http://localhost:8080/oauth/token?client_id=client&client_secret=secret&grant_type=password&scope=app&username=user&password=123456
-        /*.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)*/;
+        /*endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);*/
     }
 
     @Override
@@ -85,5 +88,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 0.2.1-SNAPSHOT
         // 读取客户端配置
         clients.withClientDetails(clientDetails());
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.allowFormAuthenticationForClients()
+                .tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
     }
 }

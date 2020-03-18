@@ -1,7 +1,7 @@
 package com.incarcloud.oauth2.pojo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Id;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 @Table
 public class RbacPermission {
 
