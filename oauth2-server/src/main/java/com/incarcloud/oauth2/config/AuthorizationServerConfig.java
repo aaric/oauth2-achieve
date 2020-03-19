@@ -63,7 +63,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 保存令牌数据
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(tokenStore());
+                .tokenStore(tokenStore())
+                .reuseRefreshTokens(false);
         // http://localhost:8080/oauth/token?client_id=client&client_secret=secret&grant_type=password&scope=app&username=user&password=123456
         /*endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);*/
     }
