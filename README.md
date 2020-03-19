@@ -1,7 +1,7 @@
 # oauth2-achieve
 
-![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)
 
 > OAuth2 Learning.
 
