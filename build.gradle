@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
 	group = "com.incarcloud"
-	version = "0.4.1-SNAPSHOT"
+	version = "0.4.2-SNAPSHOT"
 
 	apply plugin: "io.freefair.lombok"
 	apply plugin: "io.spring.dependency-management"
