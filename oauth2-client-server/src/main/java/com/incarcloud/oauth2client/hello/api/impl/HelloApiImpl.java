@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 0.3.0-SNAPSHOT
  */
 @RestController
-@RequestMapping("/api/oauth2client/hello")
+@RequestMapping("/oauth2client/hello")
 public class HelloApiImpl implements HelloApi {
 
     @Override
     @GetMapping("/sayHi")
-    @PreAuthorize("hasAuthority('oauth2client:admin')")
+    @PreAuthorize("hasAuthority('admin:oauth2client')")
     public String sayHi() {
         return "Good night";
     }
