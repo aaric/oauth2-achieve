@@ -17,7 +17,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.sql.DataSource;
 
@@ -54,19 +55,32 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     // 0.2.1-SNAPSHOT
     /*@Bean
     public TokenStore tokenStore() {
-        // 基于JDBC保持令牌数据
+        // 基于JDBC保存令牌数据
         return new JdbcTokenStore(dataSource());
     }*/
 
+    // 0.5.0-SNAPSHOT
+    /*@Bean
+    public TokenStore tokenStore() {
+        // 基于Redis保存令牌数据
+        return new RedisTokenStore(connectionFactory);
+    }*/
+
+    @Bean
+    public JwtAccessTokenConverter jwtTokenEnhancer() {
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey("oauth2");
+        return jwtAccessTokenConverter;
+    }
+
     @Bean
     public TokenStore tokenStore() {
-        // 基于Redis保持令牌数据
-        return new RedisTokenStore(connectionFactory);
+        return new JwtTokenStore(jwtTokenEnhancer());
     }
 
     @Bean
     public ClientDetailsService clientDetails() {
-        // 基于JDBC保持客户端信息数据
+        // 基于JDBC保存客户端信息数据
         return new JdbcClientDetailsService(dataSource());
     }
 
@@ -75,6 +89,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 保存令牌数据
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore())
+                .accessTokenConverter(jwtTokenEnhancer())
                 .reuseRefreshTokens(false);
         // http://localhost:8080/oauth/token?client_id=client&client_secret=secret&grant_type=password&scope=app&username=user&password=123456
         /*endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);*/
