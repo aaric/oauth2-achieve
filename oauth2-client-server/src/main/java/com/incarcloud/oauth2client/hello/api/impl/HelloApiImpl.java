@@ -1,6 +1,7 @@
 package com.incarcloud.oauth2client.hello.api.impl;
 
 import com.incarcloud.oauth2client.hello.api.HelloApi;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class HelloApiImpl implements HelloApi {
 
     @Override
     @GetMapping("/sayHi")
+    @PreAuthorize("hasAuthority('oauth2client:admin')")
     public String sayHi() {
         return "Good night";
     }

@@ -23,8 +23,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.exceptionHandling()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                /*.and()
                 .authorizeRequests()
-                .antMatchers("/api/oauth2client/**").hasAuthority("oauth2client:admin");
+                .antMatchers("/api/oauth2client/**").hasAuthority("oauth2client:admin")*/;
     }
 }
