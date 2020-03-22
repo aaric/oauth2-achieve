@@ -22,9 +22,9 @@
 
 ### 1.4 刷新令牌模式 (`refresh_token`)
 
-## 2. 默认端点
+## 2. OAuth2端点信息
 
-## 2.1 url
+## 2.1 URL地址
 
 - `/oauth/authorize`：授权端点
 - `/oauth/token`：令牌端点
@@ -33,7 +33,7 @@
 - `/oauth/check_token`：用于资源服务访问的令牌解析端点
 - `/oauth/token_key`：提供公有密匙的端点，如果你使用 JWT 令牌的话
 
-## 2.2 redis
+## 2.2 Redis存储Token信息示例
 
 ```redis
 127.0.0.1:6379[8]> keys *
