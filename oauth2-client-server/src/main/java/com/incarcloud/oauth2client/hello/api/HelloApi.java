@@ -8,5 +8,9 @@ package com.incarcloud.oauth2client.hello.api;
  */
 public interface HelloApi {
 
-    String sayHi();
+    String morning();
+
+    String afternoon();
+
+    String night();
 }

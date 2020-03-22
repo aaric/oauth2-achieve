@@ -17,9 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloApiImpl implements HelloApi {
 
     @Override
-    @GetMapping("/sayHi")
-    @PreAuthorize("hasAuthority('admin:oauth2client')")
-    public String sayHi() {
-        return "Good night";
+    @GetMapping("/morning")
+    @PreAuthorize("hasAuthority('oauth2client:hello:morning')")
+    public String morning() {
+        return "Good morning!";
+    }
+
+    @Override
+    @GetMapping("/afternoon")
+    @PreAuthorize("hasAuthority('oauth2client:hello:afternoon')")
+    public String afternoon() {
+        return "Good afternoon!";
+    }
+
+    @Override
+    @GetMapping("/night")
+    @PreAuthorize("hasAuthority('oauth2client:hello:night')")
+    public String night() {
+        return "Good night!";
     }
 }
