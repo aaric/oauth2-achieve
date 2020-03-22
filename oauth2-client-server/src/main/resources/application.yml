@@ -27,12 +27,14 @@ logging:
 
 # Spring settings
 spring:
+  profiles:
+    active: dev
   application:
     name: oauth2-client-server
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://192.168.56.200:33068/oauth2?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/oauth2?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: root
     hikari:
