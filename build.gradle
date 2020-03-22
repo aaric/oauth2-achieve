@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
 	group = "com.incarcloud"
-	version = "0.4.2-SNAPSHOT"
+	version = "0.5.0-SNAPSHOT"
 
 	apply plugin: "io.freefair.lombok"
 	apply plugin: "io.spring.dependency-management"
@@ -39,6 +39,7 @@ allprojects {
 			dependency "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 			dependency "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 			dependency "org.springframework.cloud:spring-cloud-starter-oauth2:$springOAuth2Version"
+			dependency "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
 		}
 
 		/*imports {

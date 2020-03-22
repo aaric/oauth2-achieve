@@ -15,6 +15,8 @@
 
 ### 1.2 客户端授权模式 (`client_credentials`)
 
+> (待完善)
+
 ### 1.3 密码授权模式 (`password`)
 
 - step_1: curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&scope=app&username=user&password=123456" "http://client:secret@localhost:8080/oauth/token"
@@ -22,7 +24,11 @@
 
 ### 1.4 刷新令牌模式 (`refresh_token`)
 
-## 2. 默认端点
+> (待完善)
+
+## 2. OAuth2端点信息
+
+## 2.1 URL地址
 
 - `/oauth/authorize`：授权端点
 - `/oauth/token`：令牌端点
@@ -30,6 +36,21 @@
 - `/oauth/error`：授权服务错误信息端点
 - `/oauth/check_token`：用于资源服务访问的令牌解析端点
 - `/oauth/token_key`：提供公有密匙的端点，如果你使用 JWT 令牌的话
+
+## 2.2 Redis存储Token信息示例
+
+```redis
+127.0.0.1:6379[8]> keys *
+1) "uname_to_access:client:admin"
+2) "refresh_to_access:5da217f3-97f5-4c90-a3c7-7da45377a709"
+3) "auth_to_access:8502edc3f4c61f1000b1932e6a3756f1"
+4) "access:0d7ea7cf-8dc1-4dc6-bbdd-7531ad28f563"
+5) "access_to_refresh:0d7ea7cf-8dc1-4dc6-bbdd-7531ad28f563"
+6) "client_id_to_access:client"
+7) "refresh:5da217f3-97f5-4c90-a3c7-7da45377a709"
+8) "refresh_auth:5da217f3-97f5-4c90-a3c7-7da45377a709"
+9) "auth:0d7ea7cf-8dc1-4dc6-bbdd-7531ad28f563"
+```
 
 ## 3. 权限控制模型
 
