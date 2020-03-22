@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -39,8 +38,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /*@Autowired
     private PasswordEncoder passwordEncoder;*/
 
-    @Autowired
-    private RedisConnectionFactory connectionFactory;
+    // 0.5.0-SNAPSHOT
+    /*@Autowired
+    private RedisConnectionFactory connectionFactory;*/
 
     @Autowired
     @Qualifier("authenticationManagerBean")
