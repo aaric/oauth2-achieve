@@ -48,10 +48,10 @@ spring:
       connection-test-query: SELECT 1
 
 # Security settings
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://localhost:8080/oauth2/user/info
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://localhost:8080/oauth2/user/info
 
 # Mybatis settings
 mybatis:
