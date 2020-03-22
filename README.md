@@ -73,9 +73,39 @@ http://localhost:8080/oauth2/user/info?access_token=4307b5f1-fc04-4891-bcea-c58c
 ```text
 # OAuth2 Client
 ## has authority
-http://localhost:9090/oauth2client/hello/morning?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
-http://localhost:9090/oauth2client/hello/afternoon?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
+http://localhost:9090/oauth2client/hello/morning?access_token=${access_token}
+http://localhost:9090/oauth2client/hello/afternoon?access_token=${access_token}
 
 ## not has authority
-http://localhost:9090/oauth2client/hello/night?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
+http://localhost:9090/oauth2client/hello/night?access_token=${access_token}
+```
+
+## 4. 创建jks证书
+
+> Win10安装OpenSSL需要下载[Win64OpenSSL-1_1_1e.exe](http://slproweb.com/products/Win32OpenSSL.html)。
+
+```bash
+# su - admin
+## 创建jks证书
+##  - CN: 名字与姓氏
+##  - OU: 组织单位名称
+##  -  O: 组织名称
+##  -  L: 城市或区域名称
+##  - ST: 省/市/自治区名称
+##  - CN: 双字母国家代码/地区代码
+sh> keytool -genkey -alias oauth2 -keyalg RSA -keysize 2048 \
+  -dname "CN=OAuth2 Server,OU=OAuth2,O=jwt,L=Wuhan, ST=Hubei,C=CN" \
+  -validity 3650 -keypass kp123345 -keystore oauth2.jks -storepass sp123456
+## 获取公钥信息
+sh> keytool -list -rfc -keystore oauth2.jks | openssl x509 -inform pem -pubkey
+Enter keystore password:  sp123456
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAicH8jIQmo2rVl6HeQrzR
+kreo7SDlgoegMHEiO005tcAs3O56hkf5QfsSyxTEu7aUCUs3/4WZ6viPrDJhHs7Y
+CpNvp4enxtVpEXD6+Q74EgZ2+cMUETHkX8rUqvV4hGKNsP6ytKoKcCvbCxXTDmfq
+uEZNMvX3Q1lkESl5UhB6Mx8ArKTeOP46bm75dD+aP1ANkySIW556nYTEZtRRXpqY
+g5ZTHofVOL+AAtTd741lNxzy3k09yl3iKiin/Mbj/s+1aJbUAK7u62q5gxwcIike
+chEIcairwwKdehD7c9viq9V3ZdAgBIzNO0iDlFxSRYCGCs0LUifYisx3ulfPFDgX
+sQIDAQAB
+-----END PUBLIC KEY-----
 ```

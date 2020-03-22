@@ -1,7 +1,9 @@
 package com.incarcloud.oauth2client.config;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -9,6 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import java.io.IOException;
 
 /**
  * 资源认证配置
@@ -35,7 +39,20 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtTokenEnhancer() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey("oauth2");
+
+        // 0.6.0-SNAPSHOT
+        /*jwtAccessTokenConverter.setSigningKey("oauth2");*/
+
+        // 0.7.0-SNAPSHOT
+        String key = null;
+        try {
+            ClassPathResource resource = new ClassPathResource("oauth2.txt");
+            key = IOUtils.toString(resource.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jwtAccessTokenConverter.setVerifierKey(key);
+
         return jwtAccessTokenConverter;
     }
 

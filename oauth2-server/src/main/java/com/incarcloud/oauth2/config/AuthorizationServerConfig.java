@@ -7,7 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -19,8 +19,10 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
 
 /**
  * OAuth2服务端配置
@@ -36,8 +38,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /*@Autowired
     private PasswordEncoder passwordEncoder;*/
 
-    @Autowired
-    private RedisConnectionFactory connectionFactory;
+    // 0.5.0-SNAPSHOT
+    /*@Autowired
+    private RedisConnectionFactory connectionFactory;*/
 
     @Autowired
     @Qualifier("authenticationManagerBean")
@@ -69,7 +72,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtTokenEnhancer() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey("oauth2");
+
+        // 0.6.0-SNAPSHOT
+        /*jwtAccessTokenConverter.setSigningKey("oauth2");*/
+
+        // 0.7.0-SNAPSHOT
+        // keytool -genkey -alias oauth2 -keyalg RSA -keysize 2048 \
+        //   -dname "CN=OAuth2 Server,OU=OAuth2,O=jwt,L=Wuhan, ST=Hubei,C=CN" \
+        //   -validity 3650 -keypass kp123345 -keystore oauth2.jks -storepass sp123456
+        ClassPathResource resource = new ClassPathResource("oauth2.jks");
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(resource, "sp123456".toCharArray());
+        KeyPair keyPair = keyStoreKeyFactory.getKeyPair("oauth2");
+        jwtAccessTokenConverter.setKeyPair(keyPair);
+
         return jwtAccessTokenConverter;
     }
 
