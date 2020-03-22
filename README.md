@@ -79,3 +79,19 @@ http://localhost:9090/oauth2client/hello/afternoon?access_token=4307b5f1-fc04-48
 ## not has authority
 http://localhost:9090/oauth2client/hello/night?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
 ```
+
+## 4. 创建jks证书
+
+```bash
+# su - admin
+## 创建jks证书
+##  - CN: 名字与姓氏
+##  - OU: 组织单位名称
+##  -  O: 组织名称
+##  -  L: 城市或区域名称
+##  - ST: 省/市/自治区名称
+##  - CN: 双字母国家代码/地区代码
+sh> keytool -genkey -alias oauth2 -keyalg RSA -keysize 2048 -dname "CN=OAuth2 Server,OU=OAuth2,O=jwt,L=Wuhan, ST=Hubei,C=CN" -validity 3650 -keypass kp123345 -keystore oauth2.jks -storepass sp123456
+## 获取公钥信息
+sh> keytool -list -rfc -keystore oauth2.jks | openssl x509 -inform pem -pubkey
+```
