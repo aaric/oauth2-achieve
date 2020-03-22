@@ -39,3 +39,22 @@
 - `ACL`：访问控制列表
 - `ABAC`：基于属性
 - `PBAC`：基于策略
+
+### 3.1 提供身份信息
+
+```text
+# OAuth2 Server
+http://localhost:8080/oauth2/user/info?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
+```
+
+### 3.2 测试权限
+
+```text
+# OAuth2 Client
+## has authority
+http://localhost:9090/oauth2client/hello/morning?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
+http://localhost:9090/oauth2client/hello/afternoon?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
+
+# not has authority
+http://localhost:9090/oauth2client/hello/night?access_token=4307b5f1-fc04-4891-bcea-c58caf888cd5
+```
