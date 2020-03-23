@@ -78,10 +78,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         // 0.7.0-SNAPSHOT
         // keytool -genkey -alias oauth2 -keyalg RSA -keysize 2048 \
-        //   -dname "CN=OAuth2 Server,OU=OAuth2,O=jwt,L=Wuhan, ST=Hubei,C=CN" \
-        //   -validity 3650 -keypass kp123345 -keystore oauth2.jks -storepass sp123456
+        //  -dname "CN=OAuth2 Server,OU=Java,O=Aaric,L=Wuhan,ST=Hubei,C=CN" \
+        //  -validity 3650 -keypass admin123 -keystore oauth2.jks -storepass admin123
         ClassPathResource resource = new ClassPathResource("oauth2.jks");
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(resource, "sp123456".toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(resource, "admin123".toCharArray());
         KeyPair keyPair = keyStoreKeyFactory.getKeyPair("oauth2");
         jwtAccessTokenConverter.setKeyPair(keyPair);
 
