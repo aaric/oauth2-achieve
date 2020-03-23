@@ -1,6 +1,7 @@
 # oauth2-achieve
 
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
+![JDK 11](https://img.shields.io/badge/Java-11-green.svg)
 ![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)
 
 > OAuth2 Learning.
@@ -87,25 +88,25 @@ http://localhost:9090/oauth2client/hello/night?access_token=${access_token}
 ```bash
 # su - admin
 ## 创建jks证书
-##  - CN: 名字与姓氏
-##  - OU: 组织单位名称
-##  -  O: 组织名称
-##  -  L: 城市或区域名称
-##  - ST: 省/市/自治区名称
-##  - CN: 双字母国家代码/地区代码
+##  - CN: 名字与姓氏（姓名）
+##  - OU: 组织单位名称（部门）
+##  -  O: 组织名称（公司）
+##  -  L: 城市或区域名称（城市）
+##  - ST: 省/市/自治区名称（省份）
+##  - CN: 双字母国家代码/地区代码（国家代码）
 sh> keytool -genkey -alias oauth2 -keyalg RSA -keysize 2048 \
-  -dname "CN=OAuth2 Server,OU=OAuth2,O=jwt,L=Wuhan, ST=Hubei,C=CN" \
-  -validity 3650 -keypass kp123345 -keystore oauth2.jks -storepass sp123456
+  -dname "CN=OAuth2 Server,OU=Java,O=Aaric,L=Wuhan,ST=Hubei,C=CN" \
+  -validity 3650 -keypass admin123 -keystore oauth2.jks -storepass admin123
 ## 获取公钥信息
 sh> keytool -list -rfc -keystore oauth2.jks | openssl x509 -inform pem -pubkey
-Enter keystore password:  sp123456
+Enter keystore password:  admin123
 -----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAicH8jIQmo2rVl6HeQrzR
-kreo7SDlgoegMHEiO005tcAs3O56hkf5QfsSyxTEu7aUCUs3/4WZ6viPrDJhHs7Y
-CpNvp4enxtVpEXD6+Q74EgZ2+cMUETHkX8rUqvV4hGKNsP6ytKoKcCvbCxXTDmfq
-uEZNMvX3Q1lkESl5UhB6Mx8ArKTeOP46bm75dD+aP1ANkySIW556nYTEZtRRXpqY
-g5ZTHofVOL+AAtTd741lNxzy3k09yl3iKiin/Mbj/s+1aJbUAK7u62q5gxwcIike
-chEIcairwwKdehD7c9viq9V3ZdAgBIzNO0iDlFxSRYCGCs0LUifYisx3ulfPFDgX
-sQIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAodRsRudmPvKPg/fnHmAw
+m2v5Bfr2CmjFCgnuP5XOfmfRZ7VgTXSJEczkBPSgUAYfepYaprZSqOnHxjQZ/koO
+s8J1hLWFR4HAeLVjicUEBJi2zSUxb9Sv1KR9VjfTBJphtVUuZT30LPC71DCEoL7R
+1aVbe6V4G6bfVKn6p6IbMZceC7k85etFpElPKAtZXwznOzE7z1AL/dgIKlZRMIAA
+zFh7p57krXK0X7DCzC0sfexKXTGaMNYjVCytemdBeXZX3ru653K/+3erA1xNU9Pn
+qBLGSQbJ221N+MUGERE7X2k3EvQUZDRrcb5cNImr97xGgsNGEmXX2Q43Tx19J4U8
+yQIDAQAB
 -----END PUBLIC KEY-----
 ```

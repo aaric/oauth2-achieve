@@ -46,7 +46,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         // 0.7.0-SNAPSHOT
         String key = null;
         try {
-            ClassPathResource resource = new ClassPathResource("oauth2.txt");
+            ClassPathResource resource = new ClassPathResource("oauth2-key.txt");
             key = IOUtils.toString(resource.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
