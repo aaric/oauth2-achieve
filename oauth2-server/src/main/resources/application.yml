@@ -46,6 +46,15 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+  flyway:
+    enabled: true
+    encoding: UTF-8
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    sql-migration-prefix: V
+    sql-migration-separator: __
+    sql-migration-suffix: .sql
 #  redis:
 #    host: 127.0.0.1
 #    port: 6379
