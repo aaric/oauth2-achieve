@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat&logo=github)
 ![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)
 ![JDK 11](https://img.shields.io/badge/JDK-11-brightgreen.svg?style=flat&logo=java)
-![Gradle](https://img.shields.io/badge/Gradle-5.2.1-brightgreen.svg?style=flat&logo=gradle)
+![Gradle](https://img.shields.io/badge/Gradle-5.6.2-brightgreen.svg?style=flat&logo=gradle)
 ![Version](https://img.shields.io/badge/Version-0.8.0-blue.svg)
 
 > OAuth2 Learning.
