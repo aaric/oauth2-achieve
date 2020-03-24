@@ -1,5 +1,6 @@
 package com.incarcloud.oauth2;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class PasswordEncoderTests {
     private PasswordEncoder passwordEncoder;
 
     @Test
+    @Ignore
     public void testEncode() {
         // secret: $2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa
         // 123456: $2a$10$OZjuEUV1.se6xxp50Fj47Ov56Aex5wSK9hVGcNxaX00VThBaQvJ6u
