@@ -24,7 +24,7 @@ UNIQUE KEY `code` (`code`) USING BTREE
 
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (1, NULL, '总公司', 0, 10);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (2, 1, '深圳分公司', 0, 20);
-INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (3, 2, '宣传部', 1, 30);
+INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (3, 2, '市场策划部', 1, 30);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (4, 2, '销售部', 1, 40);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (5, 4, '业务经理', 2, 50);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (6, 1, '武汉分公司', 0, 60);
