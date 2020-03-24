@@ -1,6 +1,6 @@
 -- https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
 
-/*CREATE TABLE `clientdetails` (
+CREATE TABLE `clientdetails` (
   `appId` varchar(128) NOT NULL,
   `resourceIds` varchar(256) DEFAULT NULL,
   `appSecret` varchar(256) DEFAULT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `oauth_approvals` (
   `status` varchar(10) DEFAULT NULL,
   `expiresAt` timestamp NULL DEFAULT NULL,
   `lastModifiedAt` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;*/
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `oauth_client_details` (
   `client_id` varchar(128) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `oauth_client_details` (
   PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*CREATE TABLE `oauth_client_token` (
+CREATE TABLE `oauth_client_token` (
   `token_id` varchar(256) DEFAULT NULL,
   `token` blob,
   `authentication_id` varchar(128) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE `oauth_refresh_token` (
   `token_id` varchar(256) DEFAULT NULL,
   `token` blob,
   `authentication` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;*/
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 0.2.1-SNAPSHOT
 INSERT INTO `oauth_client_details` (`client_id`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `access_token_validity`, `refresh_token_validity`)

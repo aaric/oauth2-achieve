@@ -1,6 +1,6 @@
 package com.incarcloud.oauth2.rbac.service;
 
-import com.incarcloud.oauth2.pojo.RbacPermission;
+import com.incarcloud.oauth2.pojo.RbacAuthority;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,20 +14,20 @@ import java.util.List;
 /**
  * RbacPermissionServiceTests
  *
- * @author Aaric, created on 2020-03-15T16:37.
- * @version 0.2.2-SNAPSHOT
+ * @author Aaric, created on 2020-03-24T16:37.
+ * @version 0.8.0-SNAPSHOT
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class RbacPermissionServiceTests {
+public class RbacAuthorityServiceTests {
 
     @Autowired
-    private RbacPermissionService rbacPermissionService;
+    private RbacAuthorityService rbacAuthorityService;
 
     @Test
     @Ignore
     public void testSelectByUserId() {
-        List<RbacPermission> list = rbacPermissionService.getByUserId(1L);
+        List<RbacAuthority> list = rbacAuthorityService.getByUserId(1L);
         list.forEach(object -> System.out.println(object));
         Assert.assertNotEquals(0, list.size());
     }

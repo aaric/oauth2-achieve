@@ -1,3 +1,4 @@
+-- 官方参考链接
 -- https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
 
 CREATE TABLE `oauth_client_details` (

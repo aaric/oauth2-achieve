@@ -1,3 +1,55 @@
+# 组织用户权限设计
+
+## OAuth2
+
+> [Spring Security OAuth2官方建表参考](https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql)。
+
+```sql
+CREATE TABLE `oauth_client_details` (
+  `client_id` varchar(128) NOT NULL COMMENT '主键，客户端ID',
+  `resource_ids` varchar(256) DEFAULT NULL COMMENT '客户端所能访问的资源ID集合，多个资源时用英文逗号分隔',
+  `client_secret` varchar(256) DEFAULT NULL COMMENT '客户端访问密钥',
+  `scope` varchar(256) DEFAULT NULL COMMENT '客户端申请的权限范围，多个权限范围用英文逗号分隔',
+  `authorized_grant_types` varchar(256) DEFAULT NULL COMMENT '客户端支持的授权类型，支持多个类型用英文逗号分隔',
+  `web_server_redirect_uri` varchar(256) DEFAULT NULL COMMENT '客户端的重定向URI，仅限authorization_code或implicit类型',
+  `authorities` varchar(256) DEFAULT NULL COMMENT '客户端所拥有的Spring Security的权限值',
+  `access_token_validity` int(11) DEFAULT NULL COMMENT '客户端的access_token的有效时间值，单位：秒',
+  `refresh_token_validity` int(11) DEFAULT NULL COMMENT '客户端的refresh_token的有效时间值，单位：秒',
+  `additional_information` varchar(4096) DEFAULT NULL COMMENT '预留字段，必须为JSON数据格式',
+  `autoapprove` varchar(256) DEFAULT NULL COMMENT '设置用户是否自动Approval操作，默认值为false',
+  PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='OAuth2客户端详情表';
+
+INSERT INTO `oauth_client_details` (`client_id`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `access_token_validity`, `refresh_token_validity`)
+VALUES ('client', '$2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa', 'app', 'authorization_code,password,refresh_token', 'https://www.incarcloud.com', 43200, 2592000);
+```
+
+## RBAC
+
+### 组织机构(rbac_org)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|组织ID|
+|2|`parent_id`|`bigint`|||||父级ID|
+|3|`region_id`|`bigint`|||||行政区ID|
+|4|`name`|`varchar(100)`|N||||组织名称|
+|5|`code`|`varchar(50)`||||Y|组织编码|
+|6|`type`|`int`|N|0|||组织类型：0-机构，1-部门，2-岗位|
+|7|`icon`|`varchar(50)`|||||组织图标|
+|8|`phone_number`|`varchar(20)`|||||电话|
+|9|`fax_number`|`varchar(20)`|||||传真|
+|10|`email`|`varchar(100)`|||||电子邮箱|
+|11|`address`|`varchar(200)`|||||详细地址|
+|12|`remark`|`varchar(500)`|||||备注|
+|13|`order_index`|`bigint`|N||||排序字段，时间戳|
+|14|`is_del`|`int`|N|0|||是否删除|
+|15|`create_id`|`bigint`|N||||创建人ID|
+|16|`create_time`|`datetime`|N|0|||创建时间|
+|17|`udpate_id`|`bigint`|||||更新人ID|
+|18|`udpate_time`|`datetime`|||||更新时间|
+
+```sql
 -- 创建组织机构表
 CREATE TABLE `rbac_org` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '组织ID',
@@ -22,6 +74,17 @@ PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='组织机构表';
 
+/*
+总公司
+  - 深圳分公司
+    - 宣传部
+    - 销售部
+      - 业务经理
+  - 武汉分公司
+    - 网络部
+    - 技术总监
+      - 技术总监
+*/
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (1, NULL, '总公司', 0, 10);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (2, 1, '深圳分公司', 0, 20);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (3, 2, '宣传部', 1, 30);
@@ -31,7 +94,35 @@ INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES 
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (7, 6, '网络部', 1, 70);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (8, 6, '研发部', 1, 80);
 INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES (9, 8, '技术总监', 2, 90);
+```
 
+### 用户(rbac_user)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|用户ID|
+|2|`org_id`|`bigint`|N||||组织ID|
+|3|`region_id`|`bigint`|||||行政区ID|
+|4|`username`|`varchar(50)`|N|||Y|用户名|
+|5|`phone_number`|`varchar(20)`||||Y|手机号|
+|6|`email`|`varchar(100)`||||Y|电子邮箱|
+|7|`password`|`varchar(100)`|N||||密码|
+|8|`password_salt`|`varchar(10)`|N||||密码盐|
+|9|`locale`|`varchar(10)`|N|zh_CN|||语言环境|
+|10|`avatar_path`|`varchar(100)`|||||头像路径|
+|11|`full_name`|`varchar(50)`|||||姓名|
+|12|`gender`|`int`|N|0|||性别：0-未知，1-男，2-女|
+|13|`id_type`|`int`|||||证件类型：0-身份证，1-护照，2-其他|
+|14|`id_number`|`varchar(20)`|||||证件号|
+|15|`address`|`varchar(200)`|||||详细地址|
+|16|`remark`|`varchar(500)`|||||备注|
+|17|`is_del`|`int`|N|0|||是否删除|
+|18|`create_id`|`bigint`|N|0|||创建人ID|
+|19|`create_time`|`datetime`|N||||创建时间|
+|20|`udpate_id`|`bigint`|||||更新人ID|
+|21|`udpate_time`|`datetime`|||||更新时间|
+
+```sql
 -- 创建用户表
 CREATE TABLE `rbac_user` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID',
@@ -64,7 +155,23 @@ FOREIGN KEY (`org_id`) REFERENCES `rbac_org` (`id`)
 
 INSERT INTO `rbac_user`(`id`, `org_id`, `username`, `password`, `password_salt`) VALUES (1, 1, 'admin', '$2a$10$OZjuEUV1.se6xxp50Fj47Ov56Aex5wSK9hVGcNxaX00VThBaQvJ6u', '');
 INSERT INTO `rbac_user`(`id`, `org_id`, `username`, `password`, `password_salt`) VALUES (2, 8, 'java', '$2a$10$OZjuEUV1.se6xxp50Fj47Ov56Aex5wSK9hVGcNxaX00VThBaQvJ6u', '');
+```
 
+### 角色(rbac_role)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|角色ID|
+|2|`name`|`varchar(100)`|N||||角色名称|
+|3|`code`|`varchar(50)`||||Y|角色编码|
+|4|`remark`|`varchar(500)`|||||备注|
+|5|`is_del`|`int`|N|0|||是否删除|
+|6|`create_id`|`bigint`|N|0|||创建人ID|
+|7|`create_time`|`datetime`|N||||创建时间|
+|8|`udpate_id`|`bigint`|||||更新人ID|
+|9|`udpate_time`|`datetime`|||||更新时间|
+
+```sql
 -- 创建角色表
 CREATE TABLE `rbac_role` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色ID',
@@ -82,7 +189,19 @@ UNIQUE KEY `code` (`code`) USING BTREE
 
 INSERT INTO `rbac_role`(`id`, `name`) VALUES (1, '超级管理员');
 INSERT INTO `rbac_role`(`id`, `name`) VALUES (2, '程序员');
+```
 
+### 组织角色关联信息(rbac_org_role)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|关联ID|
+|2|`org_id`|`bigint`|N||||组织ID|
+|3|`role_id`|`bigint`|N||||角色ID|
+|4|`create_id`|`bigint`|N|0|||创建人ID|
+|5|`create_time`|`datetime`|N||||创建时间|
+
+```sql
 -- 创建组织角色关联表
 CREATE TABLE `rbac_org_role` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '关联ID',
@@ -96,7 +215,19 @@ FOREIGN KEY (`role_id`) REFERENCES `rbac_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='组织角色关联表';
 
 INSERT INTO `rbac_org_role`(`id`, `org_id`, `role_id`) VALUES (1, 8, 2);
+```
 
+### 用户角色关联信息(rbac_user_role)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|关联ID|
+|2|`user_id`|`bigint`|N||||用户ID|
+|3|`role_id`|`bigint`|N||||角色ID|
+|4|`create_id`|`bigint`|N|0|||创建人ID|
+|5|`create_time`|`datetime`|N||||创建时间|
+
+```sql
 -- 创建用户角色关联表
 CREATE TABLE `rbac_user_role` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '关联ID',
@@ -110,7 +241,27 @@ FOREIGN KEY (`role_id`) REFERENCES `rbac_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户角色关联表';
 
 INSERT INTO `rbac_user_role`(`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
+```
 
+### 权限(rbac_authority)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|权限ID|
+|2|`parent_id`|`bigint`|||||父级ID|
+|3|`icon`|`varchar(50)`|||||权限图标|
+|4|`name`|`varchar(100)`|||||权限名称|
+|5|`code`|`varchar(50)`||||Y|权限编码|
+|6|`url`|`varchar(200)`|||||授权路径|
+|7|`type`|`int`|N|0|||授权类型：0-权限，1-功能，2-菜单|
+|8|`remark`|`varchar(500)`|||||备注|
+|9|`is_del`|`int`|N|0|||是否删除|
+|10|`create_id`|`bigint`|N|0|||创建人ID|
+|11|`create_time`|`datetime`|N||||创建时间|
+|12|`udpate_id`|`bigint`|||||更新人ID|
+|13|`udpate_time`|`datetime`|||||更新时间|
+
+```sql
 -- 创建权限表
 CREATE TABLE `rbac_authority` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID',
@@ -130,6 +281,17 @@ PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='权限表';
 
+/*
+系统管理
+  - 用户管理
+    - 查询
+      - 测试权限-morning
+    - 修改
+      - 测试权限-afternoon
+个人中心
+  - 查询
+    - 测试权限-night
+*/
 INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) VALUES (1, NULL, '系统管理', NULL, '', 2);
 INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) VALUES (2, 1, '用户管理', NULL, '', 2);
 INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) VALUES (3, 2, '查询', NULL, '', 1);
@@ -139,7 +301,19 @@ INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) V
 INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) VALUES (7, NULL, '个人中心', NULL, '', 2);
 INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) VALUES (8, 7, '查询', NULL, '', 1);
 INSERT INTO `rbac_authority`(`id`, `parent_id`, `name`, `code`, `url`, `type`) VALUES (9, 8, '测试权限-night', 'oauth2client:hello:night', '/oauth2client/hello/night', 0);
+```
 
+### 角色权限关联信息(rbac_role_authority)
+
+|No|Name|Type|Null|Default|Primary|Unique|Comment|
+|:-:|:-:|:--:|:--:|:-----:|:-----:|:----:|-------|
+|1|`id`|`bigint`|N||Y|Y|关联ID|
+|2|`role_id`|`bigint`|N||||角色ID|
+|3|`authority_id`|`bigint`|N||||权限ID|
+|4|`create_id`|`bigint`|N|0|||创建人ID|
+|5|`create_time`|`datetime`|N||||创建时间|
+
+```sql
 -- 创建角色权限关联表
 CREATE TABLE `rbac_role_authority` (
 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '关联ID',
@@ -156,3 +330,4 @@ INSERT INTO `rbac_role_authority`(`id`, `role_id`, `authority_id`) VALUES (1, 1,
 INSERT INTO `rbac_role_authority`(`id`, `role_id`, `authority_id`) VALUES (2, 1, 6);
 INSERT INTO `rbac_role_authority`(`id`, `role_id`, `authority_id`) VALUES (3, 1, 9);
 INSERT INTO `rbac_role_authority`(`id`, `role_id`, `authority_id`) VALUES (4, 2, 9);
+```

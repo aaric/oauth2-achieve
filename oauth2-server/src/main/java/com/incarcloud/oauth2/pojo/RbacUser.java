@@ -22,7 +22,8 @@ public class RbacUser {
     @Id
     private Long id;
     private String username;
-    private String password;
-    private String phone;
+    private String phoneNumber;
     private String email;
+    private String password;
+    private String passwordSalt;
 }
