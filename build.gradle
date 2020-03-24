@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
 	group = "com.incarcloud"
-	version = "0.7.1-SNAPSHOT"
+	version = "0.8.0-SNAPSHOT"
 
 	apply plugin: "io.freefair.lombok"
 	apply plugin: "io.spring.dependency-management"
@@ -35,10 +35,12 @@ allprojects {
 
 			dependency "com.sun.xml.bind:jaxb-impl:2.3.3-b02"
 
+			dependency "org.flywaydb:flyway-core:6.2.4"
 
 			dependency "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 			dependency "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 			dependency "org.springframework.cloud:spring-cloud-starter-oauth2:$springOAuth2Version"
+			dependency "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
 			dependency "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
 		}
 
@@ -62,9 +64,9 @@ subprojects {
 
 		implementation "com.zaxxer:HikariCP"
 		implementation "mysql:mysql-connector-java"
-		implementation "org.springframework.boot:spring-boot-starter-jdbc"
 
 		implementation "com.sun.xml.bind:jaxb-impl"
+		implementation "org.springframework.boot:spring-boot-starter-jdbc"
 
 		testImplementation "org.springframework.boot:spring-boot-starter-test"
 	}

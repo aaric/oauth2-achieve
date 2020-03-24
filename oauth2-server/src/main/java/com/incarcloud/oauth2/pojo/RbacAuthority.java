@@ -10,20 +10,19 @@ import javax.persistence.Table;
 /**
  * 权限信息
  *
- * @author Aaric, created on 2020-03-15T16:14.
- * @version 0.2.2-SNAPSHOT
+ * @author Aaric, created on 2020-03-24T16:14.
+ * @version 0.8.0-SNAPSHOT
  */
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
 @Table
-public class RbacPermission {
+public class RbacAuthority {
 
     @Id
     private Long id;
     private Long parentId;
     private String name;
-    private String enname;
+    private String code;
     private String url;
-    private String description;
 }

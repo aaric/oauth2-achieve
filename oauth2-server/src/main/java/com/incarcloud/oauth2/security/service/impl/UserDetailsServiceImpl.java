@@ -1,8 +1,8 @@
 package com.incarcloud.oauth2.security.service.impl;
 
-import com.incarcloud.oauth2.pojo.RbacPermission;
+import com.incarcloud.oauth2.pojo.RbacAuthority;
 import com.incarcloud.oauth2.pojo.RbacUser;
-import com.incarcloud.oauth2.rbac.service.RbacPermissionService;
+import com.incarcloud.oauth2.rbac.service.RbacAuthorityService;
 import com.incarcloud.oauth2.rbac.service.RbacUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private RbacUserService rbacUserService;
 
     @Autowired
-    private RbacPermissionService rbacPermissionService;
+    private RbacAuthorityService rbacPermissionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,11 +38,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         if (null != user) {
             // 查询用户权限列表
-            List<RbacPermission> permissionList = rbacPermissionService.getByUserId(user.getId());
+            List<RbacAuthority> permissionList = rbacPermissionService.getByUserId(user.getId());
 
             // 设置用户权限字符串
             permissionList.forEach(object -> {
-                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(object.getEnname());
+                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(object.getCode());
                 grantedAuthorityList.add(grantedAuthority);
             });
         }
