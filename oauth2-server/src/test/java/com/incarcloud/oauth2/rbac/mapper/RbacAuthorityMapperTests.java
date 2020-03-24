@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 /**
- * RbacPermissionMapperTests
+ * RbacAuthorityMapperTests
  *
  * @author Aaric, created on 2020-03-24T16:26.
  * @version 0.8.0-SNAPSHOT
