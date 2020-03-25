@@ -43,11 +43,11 @@ VALUES ('client', '$2a$10$/FdlWQWV0JNGNF4WU4tJIeMT8QQMrg9jq8jPu7QGkTMypZ6Eb6wVa'
 |11|`address`|`varchar(200)`|||||详细地址|
 |12|`remark`|`varchar(500)`|||||备注|
 |13|`order_index`|`bigint`|N||||排序字段，时间戳|
-|14|`is_del`|`int`|N|0|||是否删除|
+|14|`is_del`|`tinyint(1)`|N|0|||是否删除|
 |15|`create_id`|`bigint`|N||||创建人ID|
 |16|`create_time`|`datetime`|N|0|||创建时间|
-|17|`udpate_id`|`bigint`|||||更新人ID|
-|18|`udpate_time`|`datetime`|||||更新时间|
+|17|`update_id`|`bigint`|||||更新人ID|
+|18|`update_time`|`datetime`|||||更新时间|
 
 ```sql
 -- 创建组织机构表
@@ -65,11 +65,11 @@ CREATE TABLE `rbac_org` (
 `address` varchar(200) NULL COMMENT '详细地址',
 `remark` varchar(500) NULL COMMENT '备注',
 `order_index` bigint NOT NULL COMMENT '排序字段，时间戳',
-`is_del` int NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='组织机构表';
@@ -116,11 +116,11 @@ INSERT INTO `rbac_org`(`id`, `parent_id`, `name`, `type`, `order_index`) VALUES 
 |14|`id_number`|`varchar(20)`|||||证件号|
 |15|`address`|`varchar(200)`|||||详细地址|
 |16|`remark`|`varchar(500)`|||||备注|
-|17|`is_del`|`int`|N|0|||是否删除|
+|17|`is_del`|`tinyint(1)`|N|0|||是否删除|
 |18|`create_id`|`bigint`|N|0|||创建人ID|
 |19|`create_time`|`datetime`|N||||创建时间|
-|20|`udpate_id`|`bigint`|||||更新人ID|
-|21|`udpate_time`|`datetime`|||||更新时间|
+|20|`update_id`|`bigint`|||||更新人ID|
+|21|`update_time`|`datetime`|||||更新时间|
 
 ```sql
 -- 创建用户表
@@ -141,11 +141,11 @@ CREATE TABLE `rbac_user` (
 `id_number` varchar(20) NULL COMMENT '证件号',
 `address` varchar(200) NULL COMMENT '详细地址',
 `remark` varchar(500) NULL COMMENT '备注',
-`is_del` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `username` (`username`) USING BTREE,
 UNIQUE KEY `phone_number` (`phone_number`) USING BTREE,
@@ -165,11 +165,11 @@ INSERT INTO `rbac_user`(`id`, `org_id`, `username`, `password`, `password_salt`)
 |2|`name`|`varchar(100)`|N||||角色名称|
 |3|`code`|`varchar(50)`||||Y|角色编码|
 |4|`remark`|`varchar(500)`|||||备注|
-|5|`is_del`|`int`|N|0|||是否删除|
+|5|`is_del`|`tinyint(1)`|N|0|||是否删除|
 |6|`create_id`|`bigint`|N|0|||创建人ID|
 |7|`create_time`|`datetime`|N||||创建时间|
-|8|`udpate_id`|`bigint`|||||更新人ID|
-|9|`udpate_time`|`datetime`|||||更新时间|
+|8|`update_id`|`bigint`|||||更新人ID|
+|9|`update_time`|`datetime`|||||更新时间|
 
 ```sql
 -- 创建角色表
@@ -178,11 +178,11 @@ CREATE TABLE `rbac_role` (
 `name` varchar(100) NOT NULL COMMENT '角色名称',
 `code` varchar(50) NULL COMMENT '角色编码',
 `remark` varchar(500) NULL COMMENT '备注',
-`is_del` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='角色表';
@@ -255,11 +255,11 @@ INSERT INTO `rbac_user_role`(`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
 |6|`url`|`varchar(200)`|||||授权路径|
 |7|`type`|`int`|N|0|||授权类型：0-权限，1-功能，2-菜单|
 |8|`remark`|`varchar(500)`|||||备注|
-|9|`is_del`|`int`|N|0|||是否删除|
+|9|`is_del`|`tinyint(1)`|N|0|||是否删除|
 |10|`create_id`|`bigint`|N|0|||创建人ID|
 |11|`create_time`|`datetime`|N||||创建时间|
-|12|`udpate_id`|`bigint`|||||更新人ID|
-|13|`udpate_time`|`datetime`|||||更新时间|
+|12|`update_id`|`bigint`|||||更新人ID|
+|13|`update_time`|`datetime`|||||更新时间|
 
 ```sql
 -- 创建权限表
@@ -272,11 +272,11 @@ CREATE TABLE `rbac_authority` (
 `url` varchar(200) NULL COMMENT '授权路径',
 `type` int NOT NULL DEFAULT 0 COMMENT '授权类型：0-权限，1-功能，2-菜单',
 `remark` varchar(500) NULL COMMENT '备注',
-`is_del` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='权限表';
