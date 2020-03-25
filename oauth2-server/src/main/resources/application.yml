@@ -64,3 +64,5 @@ spring:
 mybatis:
   type-aliases-package: com.incarcloud.oauth2.pojo
   mapperLocations: classpath:mapper/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
