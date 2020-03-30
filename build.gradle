@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
 	group = "com.incarcloud"
-	version = "0.8.0-SNAPSHOT"
+	version = "0.9.0-SNAPSHOT"
 
 	apply plugin: "io.freefair.lombok"
 	apply plugin: "io.spring.dependency-management"
@@ -31,7 +31,8 @@ allprojects {
 
 			dependency "com.zaxxer:HikariCP:3.4.2"
 			dependency "mysql:mysql-connector-java:8.0.18"
-			dependency "tk.mybatis:mapper-spring-boot-starter:2.1.5"
+			dependency "com.baomidou:mybatis-plus-boot-starter:3.3.1"
+			/*dependency "tk.mybatis:mapper-spring-boot-starter:2.1.5"*/
 
 			dependency "com.sun.xml.bind:jaxb-impl:2.3.3-b02"
 
@@ -58,12 +59,10 @@ subprojects {
 
 	dependencies {
 		implementation "org.slf4j:slf4j-api"
-		//implementation "org.slf4j:slf4j-simple"
-
-		implementation "tk.mybatis:mapper-spring-boot-starter"
 
 		implementation "com.zaxxer:HikariCP"
 		implementation "mysql:mysql-connector-java"
+		implementation "com.baomidou:mybatis-plus-boot-starter"
 
 		implementation "com.sun.xml.bind:jaxb-impl"
 		implementation "org.springframework.boot:spring-boot-starter-jdbc"

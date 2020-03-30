@@ -1,11 +1,11 @@
 package com.incarcloud.oauth2.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * 权限信息
@@ -16,10 +16,10 @@ import javax.persistence.Table;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-@Table
+@TableName
 public class RbacAuthority {
 
-    @Id
+    @TableId(type = IdType.AUTO)
     private Long id;
     private Long parentId;
     private String name;

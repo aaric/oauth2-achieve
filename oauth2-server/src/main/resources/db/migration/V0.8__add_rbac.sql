@@ -13,11 +13,11 @@ CREATE TABLE `rbac_org` (
 `address` varchar(200) NULL COMMENT '详细地址',
 `remark` varchar(500) NULL COMMENT '备注',
 `order_index` bigint NOT NULL COMMENT '排序字段，时间戳',
-`is_del` int NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='组织机构表';
@@ -50,11 +50,11 @@ CREATE TABLE `rbac_user` (
 `id_number` varchar(20) NULL COMMENT '证件号',
 `address` varchar(200) NULL COMMENT '详细地址',
 `remark` varchar(500) NULL COMMENT '备注',
-`is_del` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `username` (`username`) USING BTREE,
 UNIQUE KEY `phone_number` (`phone_number`) USING BTREE,
@@ -71,11 +71,11 @@ CREATE TABLE `rbac_role` (
 `name` varchar(100) NOT NULL COMMENT '角色名称',
 `code` varchar(50) NULL COMMENT '角色编码',
 `remark` varchar(500) NULL COMMENT '备注',
-`is_del` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='角色表';
@@ -94,8 +94,6 @@ PRIMARY KEY (`id`),
 FOREIGN KEY (`org_id`) REFERENCES `rbac_org` (`id`),
 FOREIGN KEY (`role_id`) REFERENCES `rbac_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='组织角色关联表';
-
-INSERT INTO `rbac_org_role`(`id`, `org_id`, `role_id`) VALUES (1, 8, 2);
 
 -- 创建用户角色关联表
 CREATE TABLE `rbac_user_role` (
@@ -121,11 +119,11 @@ CREATE TABLE `rbac_authority` (
 `url` varchar(200) NULL COMMENT '授权路径',
 `type` int NOT NULL DEFAULT 0 COMMENT '授权类型：0-权限，1-功能，2-菜单',
 `remark` varchar(500) NULL COMMENT '备注',
-`is_del` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+`is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
 `create_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人ID',
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-`udpate_id` bigint UNSIGNED NULL COMMENT '更新人ID',
-`udpate_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+`update_id` bigint UNSIGNED NULL COMMENT '更新人ID',
+`update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
 UNIQUE KEY `code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='权限表';
