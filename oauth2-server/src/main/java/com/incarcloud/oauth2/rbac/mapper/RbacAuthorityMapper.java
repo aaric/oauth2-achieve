@@ -1,9 +1,8 @@
 package com.incarcloud.oauth2.rbac.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.incarcloud.oauth2.pojo.RbacAuthority;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.common.MySqlMapper;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * @author Aaric, created on 2020-03-24T16:16.
  * @version 0.8.0-SNAPSHOT
  */
-public interface RbacAuthorityMapper extends Mapper<RbacAuthority>, MySqlMapper<RbacAuthority> {
+public interface RbacAuthorityMapper extends BaseMapper<RbacAuthority> {
 
     /**
      * 根据用户ID获得权限列表

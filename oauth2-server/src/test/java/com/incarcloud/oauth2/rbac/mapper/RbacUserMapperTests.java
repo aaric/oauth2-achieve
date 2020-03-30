@@ -25,7 +25,7 @@ public class RbacUserMapperTests {
     @Test
     @Ignore
     public void testGet() {
-        RbacUser user = rbacUserMapper.selectByPrimaryKey(1L);
+        RbacUser user = rbacUserMapper.selectById(1L);
         System.out.println(user);
         Assert.assertNotNull(user);
     }

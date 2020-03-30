@@ -1,9 +1,9 @@
 package com.incarcloud.oauth2.rbac.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.incarcloud.oauth2.pojo.RbacAuthority;
 import com.incarcloud.oauth2.rbac.mapper.RbacAuthorityMapper;
 import com.incarcloud.oauth2.rbac.service.RbacAuthorityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,13 +15,10 @@ import java.util.List;
  * @version 0.8.0-SNAPSHOT
  */
 @Service
-public class RbacAuthorityServiceImpl implements RbacAuthorityService {
-
-    @Autowired
-    private RbacAuthorityMapper rbacAuthorityMapper;
+public class RbacAuthorityServiceImpl extends ServiceImpl<RbacAuthorityMapper, RbacAuthority> implements RbacAuthorityService {
 
     @Override
     public List<RbacAuthority> getByUserId(Long userId) {
-        return rbacAuthorityMapper.selectByUserId(userId);
+        return getBaseMapper().selectByUserId(userId);
     }
 }
