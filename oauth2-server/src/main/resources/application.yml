@@ -62,7 +62,7 @@ spring:
 
 # MyBatis-Plus settings
 mybatis-plus:
-  type-aliases-package: com.incarcloud.system.pojo
+  type-aliases-package: com.incarcloud.oauth2.pojo
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   global-config:
     db-column-underline: true
