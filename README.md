@@ -1,10 +1,10 @@
 # oauth2-achieve
 
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat&logo=github)](https://www.mit-license.org/)
-[![Java CI](https://github.com/aaric/oauth2-achieve/workflows/Java%20CI/badge.svg)](https://github.com/aaric/oauth2-achieve/actions)
-[![OpenJDK](https://img.shields.io/badge/OpenJDK-11-brightgreen.svg?style=flat&logo=java)](http://openjdk.java.net)
-[![Gradle](https://img.shields.io/badge/Gradle-5.6.2-brightgreen.svg?style=flat&logo=gradle)](https://gradle.org)
-[![Version](https://img.shields.io/badge/Version-0.9.2-blue.svg)](https://github.com/aaric/oauth2-achieve/releases)
+[![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat&logo=github)](https://www.mit-license.org)
+[![java](https://img.shields.io/badge/java-11-brightgreen.svg?style=flat&logo=java)](https://www.oracle.com/java/technologies/javase-downloads.html)
+[![gradle](https://img.shields.io/badge/gradle-5.6.2-brightgreen.svg?style=flat&logo=gradle)](https://docs.gradle.org/5.6.2/userguide/installation.html)
+[![build](https://github.com/aaric/oauth2-achieve/workflows/build/badge.svg)](https://github.com/aaric/oauth2-achieve/actions)
+[![release](https://img.shields.io/badge/release-0.9.3-blue.svg)](https://github.com/aaric/oauth2-achieve/releases)
 
 > OAuth2 Learning.
 
